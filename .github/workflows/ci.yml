@@ -70,7 +70,7 @@ jobs:
           SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
           SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
       - name: Quality Gate
-        uses: SonarSource/sonarcloud-quality-gate-action@master
+        uses: SonarSource/sonarcloud-quality-gate-action@v1
         with:
           scanMetadataReportFile: .scannerwork/report-task.txt
         env:
