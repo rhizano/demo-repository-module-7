@@ -7,7 +7,8 @@
     "start": "node dist/app.js",
     "dev": "ts-node src/app.ts",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .ts"
   },
   "keywords": [
     "weather",
@@ -32,6 +33,9 @@
     "@types/morgan": "1.7.35",
     "@types/node": "10.12.0",
     "@types/node-fetch": "^2.6.12",
+    "@typescript-eslint/eslint-plugin": "^8.38.0",
+    "@typescript-eslint/parser": "^8.38.0",
+    "eslint": "^9.31.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
