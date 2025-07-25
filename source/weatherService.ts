@@ -1,5 +1,5 @@
-import { getDb } from '../config/database';
-import { WeatherData } from '../models/weatherModel';
+import { getDb } from './database';
+import { WeatherData } from './weatherModel';
 
 // Fixed: Use environment variables instead of hardcoded values
 const API_KEY = process.env.WEATHER_API_KEY || '';
