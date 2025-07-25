@@ -79,6 +79,6 @@ jobs:
         run: |
           gate_status=$(cat .scannerwork/report-task.txt | grep status | cut -d'=' -f2)
           if [ "$gate_status" != "SUCCESS" ]; then
-            echo "Quality Gate failed! New bugs or code smells detected."
+            echo "Quality Gate failed: New bugs or code smells detected."
             exit 1
           fi
