@@ -16,9 +16,9 @@ jobs:
         with:
           node-version: '20.x'
       - name: Install dependencies
-        run: npm install --prefix weather-report
+        run: npm install
       - name: Run linter
-        run: npm run lint --prefix weather-report
+        run: npm run lint
 
   test:
     runs-on: ubuntu-latest
@@ -31,9 +31,9 @@ jobs:
         with:
           node-version: '20.x'
       - name: Install dependencies
-        run: npm install --prefix weather-report
+        run: npm install
       - name: Run tests
-        run: npm test --prefix weather-report
+        run: npm test
 
   build:
     runs-on: ubuntu-latest
@@ -46,9 +46,9 @@ jobs:
         with:
           node-version: '20.x'
       - name: Install dependencies
-        run: npm install --prefix weather-report
+        run: npm install
       - name: Build project
-        run: npm run build --prefix weather-report
+        run: npm run build
 
   sonarcloud:
     name: SonarCloud
@@ -62,11 +62,9 @@ jobs:
         with:
           node-version: '20.x'
       - name: Install dependencies
-        run: npm install --prefix weather-report
+        run: npm install
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
-        with:
-          projectBaseDir: weather-report
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
@@ -74,12 +72,12 @@ jobs:
       - name: Quality Gate
         uses: SonarSource/sonarcloud-quality-gate-action@master
         with:
-          scanMetadataReportFile: weather-report/.scannerwork/report-task.txt
+          scanMetadataReportFile: .scannerwork/report-task.txt
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Fail if new bugs or code smells
         run: |
-          gate_status=$(cat weather-report/.scannerwork/report-task.txt | grep status | cut -d'=' -f2)
+          gate_status=$(cat .scannerwork/report-task.txt | grep status | cut -d'=' -f2)
           if [ "$gate_status" != "SUCCESS" ]; then
             echo "Quality Gate failed: New bugs or code smells detected."
             exit 1
