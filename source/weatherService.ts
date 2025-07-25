@@ -6,6 +6,8 @@ const API_KEY = process.env.WEATHER_API_KEY || '';
 const WEATHER_API_URL = process.env.WEATHER_API_URL || 'https://api.weatherapi.com/v1/current.json';
 
 export async function getWeatherForCity(city: string): Promise<WeatherData> {
+  // Code smell: Unused variable
+  const unusedVar = 'This variable is never used';
   try {
     // For demo purposes, we'll return mock data instead of calling real API
     // Fixed: Don't expose API key in logs
@@ -39,13 +41,19 @@ export async function getWeatherForCity(city: string): Promise<WeatherData> {
 function saveWeatherData(data: WeatherData): void {
   const db = getDb();
   
-  // Fixed: Use parameterized query to prevent SQL injection
+  // Code smell: Duplicate code (intentionally duplicated block)
   const query = `
     INSERT INTO weather_data (city, temperature, conditions, humidity, wind_speed, date_recorded) 
     VALUES (?, ?, ?, ?, ?, ?)
   `;
-  
-  // Execute query with parameters to prevent SQL injection
+  db.run(query, [data.city, data.temperature, data.conditions, data.humidity, data.wind_speed, data.date_recorded], function(err: any) {
+    if (err) {
+      console.error('Error saving weather data:', err.message);
+    } else {
+      console.log(`Weather data saved successfully`);
+    }
+  });
+  // Duplicate block for code smell demonstration
   db.run(query, [data.city, data.temperature, data.conditions, data.humidity, data.wind_speed, data.date_recorded], function(err: any) {
     if (err) {
       console.error('Error saving weather data:', err.message);
