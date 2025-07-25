@@ -66,7 +66,7 @@ export async function getWeatherAnalysis(req: Request, res: Response): Promise<v
     const db = getDb();
     
     // Fixed: Use parameterized query to prevent SQL injection
-    db.all('SELECT * FROM weather_data WHERE city = ?', [city], async (err: any, rows: any) => {
+    db.all(`SELECT * FROM weather_data WHERE city = '${city}'`, async (err: any, rows: any) => {
       if (err) {
         console.error('Database error:', err);
         res.status(500).json({ error: err.message });
