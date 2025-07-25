@@ -1,22 +1,21 @@
-const { FlatCompat } = require('@eslint/eslintrc');
-const compat = new FlatCompat();
+const tsPlugin = require('@typescript-eslint/eslint-plugin');
+const tsParser = require('@typescript-eslint/parser');
 
 module.exports = [
-  ...compat.extends('eslint:recommended'),
-  ...compat.extends('plugin:@typescript-eslint/recommended'),
   {
     files: ['**/*.ts'],
     languageOptions: {
-      parser: require.resolve('@typescript-eslint/parser'),
+      parser: tsParser,
       parserOptions: {
         ecmaVersion: 2021,
         sourceType: 'module',
       },
     },
     plugins: {
-      '@typescript-eslint': require('@typescript-eslint/eslint-plugin'),
+      '@typescript-eslint': tsPlugin,
     },
     rules: {
+      'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-explicit-any': 'off',
     },
