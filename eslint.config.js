@@ -1,18 +1,24 @@
-import js from '@eslint/js';
-import tseslint from 'typescript-eslint';
+const { FlatCompat } = require('@eslint/eslintrc');
+const compat = new FlatCompat();
 
-export default [
-  js.config({
-    env: {
-      es2021: true,
-      node: true
-    }
-  }),
-  ...tseslint.config({
+module.exports = [
+  ...compat.extends('eslint:recommended'),
+  ...compat.extends('plugin:@typescript-eslint/recommended'),
+  {
     files: ['**/*.ts'],
+    languageOptions: {
+      parser: require.resolve('@typescript-eslint/parser'),
+      parserOptions: {
+        ecmaVersion: 2021,
+        sourceType: 'module',
+      },
+    },
+    plugins: {
+      '@typescript-eslint': require('@typescript-eslint/eslint-plugin'),
+    },
     rules: {
       '@typescript-eslint/no-unused-vars': 'warn',
-      '@typescript-eslint/no-explicit-any': 'off'
-    }
-  })
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
 ];
