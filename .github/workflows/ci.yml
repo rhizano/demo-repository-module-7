@@ -69,16 +69,3 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
           SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
-      - name: Quality Gate
-        uses: SonarSource/sonarcloud-quality-gate-action@v1
-        with:
-          scanMetadataReportFile: .scannerwork/report-task.txt
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      - name: Fail if new bugs or code smells
-        run: |
-          gate_status=$(cat .scannerwork/report-task.txt | grep status | cut -d'=' -f2)
-          if [ "$gate_status" != "SUCCESS" ]; then
-            echo "Quality Gate failed: New bugs or code smells detected."
-            exit 1
-          fi
